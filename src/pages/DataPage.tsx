@@ -1,4 +1,5 @@
 import Header from "../components/Header";
+import { useNavigate } from "react-router-dom";
 
 type DataPageProps = {
   character: {
@@ -18,6 +19,12 @@ type DataPageProps = {
 };
 
 const DataPage = ({ character, checkToken }: DataPageProps) => {
+  const Navigate = useNavigate();
+
+  const handleReturn = (): void => {
+    Navigate("/");
+  };
+
   return (
     <>
       <Header />
@@ -42,6 +49,7 @@ const DataPage = ({ character, checkToken }: DataPageProps) => {
             </a>
           </li>
         </ul>
+        <button onClick={handleReturn}>Return</button>
       </div>
     </>
   );

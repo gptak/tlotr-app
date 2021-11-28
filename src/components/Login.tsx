@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 
 type LoginProps = {
   checkToken: () => void;
@@ -30,7 +29,7 @@ function Login({ checkToken }: LoginProps) {
     e.preventDefault();
 
     if (login === properLogin && password === properPassword) {
-      Cookies.set("logged", "true");
+      localStorage.setItem("logged", "true");
       checkToken();
       setWrongLog(false);
       navigate("/");

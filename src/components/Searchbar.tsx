@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 
 type SearchbarProps = {
   dataLoader: (parameter?: string) => void;
@@ -10,7 +9,20 @@ type SearchbarProps = {
 const Searchbar = ({ dataLoader, checkToken }: SearchbarProps) => {
   const [searchPhrase, setSearchPhrase] = useState<string>("");
   const [filteredRace, setFilteredRace] = useState<string>("all");
-  const races = ["all", "Human", "Elf", "Orc", "Dwarf", "Ent", "Uruk-hai", "Stone-trolls"];
+  const races = [
+    "all",
+    "Human",
+    "Dragon",
+    "Elf",
+    "Half-elven",
+    "Orc",
+    "Dwarf",
+    "Maiar",
+    "Ent",
+    "Uruk-hai",
+    "Eagle",
+    "Vampire"
+  ];
 
   const Navigate = useNavigate();
 
@@ -36,16 +48,15 @@ const Searchbar = ({ dataLoader, checkToken }: SearchbarProps) => {
     dataLoader(param);
   };
 
-
   //RESET
-  const reset = (): void => {
+  const handleReset = (): void => {
     dataLoader();
   };
 
   //LOGOUT
 
   const handleLogout = (): void => {
-    Cookies.remove("logged");
+    localStorage.removeItem("logged");
     checkToken();
     Navigate("/login");
   };
@@ -81,7 +92,7 @@ const Searchbar = ({ dataLoader, checkToken }: SearchbarProps) => {
           </div>
         </div>
         <div>
-          <button onClick={reset}>Reset</button>
+          <button onClick={handleReset}>Reset</button>
           <button onClick={handleLogout}>Logout</button>
         </div>
       </div>

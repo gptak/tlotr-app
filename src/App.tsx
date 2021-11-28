@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import axios from "axios";
-import Cookies from "js-cookie";
 
 import MainPage from "./pages/MainPage";
 import LoginPage from "./pages/LoginPage";
@@ -62,15 +60,15 @@ const App = () => {
       apiCall = baseURL;
     }
 
-    axios.get(apiCall, { headers }).then((res) => {
-      setData(res.data.docs);
-    });
+    fetch(apiCall, { headers })
+      .then((response) => response.json())
+      .then((data) => setData(data.docs));
   };
 
   const checkToken = (): void => {
-    const cookies = Cookies.get("logged");
+    const log = localStorage.getItem("logged");
 
-    if (cookies === "true") {
+    if (log === "true") {
       setToken(true);
     } else {
       setToken(false);
